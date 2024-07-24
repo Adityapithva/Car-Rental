@@ -4,11 +4,14 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Cars = require('./models/Cars');
+const upload = require('./multerConfig.js');
 const app = express();
-
+const path = require('path');
+const SECERET_KEY = 'asdcvghjytredcv';
 app.use(cors());
 app.use(express.json());
-const SECERET_KEY = 'asdcvghjytredcv';
+app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 //Database connection
 mongoose.connect("mongodb://localhost:27017/car-rental",{
     useNewUrlParser: true,
@@ -47,7 +50,29 @@ app.post('/login',async(req,res) => {
     const token = jwt.sign({email:user.email},SECERET_KEY,{
         expiresIn:'2h'
     });
-    res.status(200).json({token});
+    res.status(200).json({token,user});
+});
+
+//Add a new Car from admin panel
+app.post('/addcar',upload.single("image"),async(req,res) => {
+    const {name,fuelType,transmission,seatingCapacity} = req.body;
+    const image = req.file ? req.file.path : "";
+    try{
+        const newCar = await Cars.create({name,fuelType,transmission,seatingCapacity,image});
+        res.status(201).json({message:'Car added successfully', newCar});
+    }catch(err){
+        res.status(500).json({message:'Error adding car', error:err.message});
+    }
+});
+
+//Get all cars
+app.get('/cars',async(req,res) => {
+    try{
+        const cars = await Cars.find();
+        res.status(200).json(cars);
+    }catch(err){
+        res.status(500).json({message:'Error fetching cars', error:err.message});
+    }
 });
 app.listen(3000,() => {
     console.log('Server is running on port 3000');

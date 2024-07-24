@@ -1,0 +1,26 @@
+.main {
+    background-image: url(../../../public/images/car1.jpg);
+    height: 500px;
+    width: 100%;
+    background-size: cover;
+    display: absolute;
+
+}
+
+.overlay {
+    height: 300px;
+    width: 350px;
+    padding: 3px;
+    float: right;
+    margin-right: 100px;
+    margin-top: 100px;
+}
+
+.overlay h1,
+p {
+    color: white;
+}
+#line{
+    height: 10px;
+    background: black;
+}
