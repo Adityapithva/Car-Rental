@@ -1,7 +1,7 @@
-import SignIn from "./components/SignIn/SignIn";
+import LogIn from './components/LogIn/LogIn';
 function App(){
   return <>
-    <SignIn></SignIn>
+    <LogIn></LogIn>
   </>
 }
 export default App;

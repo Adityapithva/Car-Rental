@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+const SECERET_KEY = 'asdcvghjytredcv';
 //Database connection
 mongoose.connect("mongodb://localhost:27017/car-rental",{
     useNewUrlParser: true,
@@ -31,6 +31,23 @@ app.post('/register',async(req,res) => {
     const hashedPassword = await bcrypt.hash(password,10);
     const newUser = await User.create({name,email,password:hashedPassword,role});
     res.status(201).json({message:'User registered successfully'});
+});
+
+//Login a user
+app.post('/login',async(req,res) => {
+    const {name,email,password,role} = req.body;
+    const user = await User.findOne({email});
+    if(!user){
+        return res.json({'message':'user not found'});
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if(!validPassword){
+        return res.json({'message':'Invalid credentials'});
+    }
+    const token = jwt.sign({email:user.email},SECERET_KEY,{
+        expiresIn:'2h'
+    });
+    res.status(200).json({token});
 });
 app.listen(3000,() => {
     console.log('Server is running on port 3000');
