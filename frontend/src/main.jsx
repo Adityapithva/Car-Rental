@@ -19,7 +19,8 @@ const routes = createBrowserRouter([
   {path:'/home',element:<Home></Home>},
   {path:'/addcar',element:<AddCar></AddCar>},
   {path:'/viewcar',element:<ViewCar></ViewCar>},
-  {path:'/viewusers',element:<ViewUsers></ViewUsers>}
+  {path:'/viewusers',element:<ViewUsers></ViewUsers>},
+  {path:'/home',element:<Home></Home>}
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

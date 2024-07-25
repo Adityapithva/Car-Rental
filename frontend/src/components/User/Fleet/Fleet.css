@@ -1,10 +1,7 @@
-.car-container {
+.fleetContainer{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-}
-#abtn{
-    float: right;
-    bottom: 0;
+    justify-content: center;
 }
