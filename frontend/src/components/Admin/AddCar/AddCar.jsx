@@ -9,7 +9,7 @@ const AddCar = () => {
     let transmission = useRef('');
     let seatingCapacity = useRef('');
     let image = useRef('');
-
+    let rate = useRef('');
     const handleSubmit = async(event) => {
         event.preventDefault();
         try{
@@ -19,6 +19,7 @@ const AddCar = () => {
                 transmission:transmission.current.value,
                 seatingCapacity:seatingCapacity.current.value,
                 image: image.current.files[0],
+                rate: rate.current.value,
             },{
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -31,6 +32,7 @@ const AddCar = () => {
                 transmission.current.value = '';
                 seatingCapacity.current.value = '';
                 image.current.value = '';
+                rate.current.value = '';
             }
         }catch(err){
             console.log(err);
@@ -52,6 +54,9 @@ const AddCar = () => {
                 </div>
                 <div className="input-container">
                     <input type="number" placeholder="Enter seating capacity" ref={seatingCapacity}/>
+                </div>
+                <div className="input-container">
+                    <input type="number" placeholder="Enter rate per day" ref={rate}/>
                 </div>
                 <div className="input-container">
                     <input type="file" accept="image/*" ref={image}/>

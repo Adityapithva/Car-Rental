@@ -55,10 +55,10 @@ app.post('/login',async(req,res) => {
 
 //Add a new Car from admin panel
 app.post('/addcar',upload.single("image"),async(req,res) => {
-    const {name,fuelType,transmission,seatingCapacity} = req.body;
+    const {name,fuelType,transmission,seatingCapacity,rate} = req.body;
     const image = req.file ? req.file.path : "";
     try{
-        const newCar = await Cars.create({name,fuelType,transmission,seatingCapacity,image});
+        const newCar = await Cars.create({name,fuelType,transmission,seatingCapacity,image,rate});
         res.status(201).json({message:'Car added successfully', newCar});
     }catch(err){
         res.status(500).json({message:'Error adding car', error:err.message});
@@ -84,6 +84,19 @@ app.get('/viewusers',async(req,res) => {
         res.status(500).json({message:'Error fetching users', error:err.message});
     }
 });
+
+//Delete a user from admin panel
+app.delete('/viewusers/:userId',async(req,res) => {
+    try{
+        const user = await User.findByIdAndDelete(req.params.userId);
+        if(!user){
+            return res.status(404).json({message:'User not found'});
+        }
+        res.status(200).json({message:'User deleted successfully'});
+    }catch(err){
+        res.status(500).json({message:'Error deleting user', error:err.message});
+    }
+})
 app.listen(3000,() => {
     console.log('Server is running on port 3000');
 })

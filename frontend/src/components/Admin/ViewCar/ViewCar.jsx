@@ -44,6 +44,9 @@ const ViewCar = () => {
                             <p className="desc">
                                 Seating Capacity: {car.seatingCapacity}
                             </p>
+                            <p className="desc">
+                                Rate per day: {car.rate}/-
+                            </p>
                             <a className="action" href="#">
                                 Find out more
                                 <span aria-hidden="true">→</span>
@@ -51,6 +54,7 @@ const ViewCar = () => {
                         </div>
                     </div>
                 ))}
+                {cars.length === 0 && <h2>Nothing to show here...</h2>}
             </div>
         </>
     );

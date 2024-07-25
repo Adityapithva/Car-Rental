@@ -5,7 +5,8 @@ const carSchema = new mongoose.Schema({
     fuelType:{type:String,required:true},
     transmission:{type:String,required:true},
     seatingCapacity:{type:String,required:true},
-    image:String
+    image:String,
+    rate:{type:Number,required:true},
 });
 
 const Cars = mongoose.model('Cars',carSchema);
