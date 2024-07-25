@@ -10,6 +10,7 @@ import DashBoard from './components/Admin/DashBoard/DashBoard.jsx';
 import Home from './components/User/Home/Home.jsx';
 import AddCar from './components/Admin/AddCar/AddCar.jsx';
 import ViewCar from './components/Admin/ViewCar/ViewCar.jsx';
+import ViewUsers from './components/Admin/ViewUsers/ViewUsers.jsx';
 const routes = createBrowserRouter([
   {path:'/',element:<SignIn></SignIn>},
   {path:'/login',element:<LogIn></LogIn>},
@@ -17,7 +18,8 @@ const routes = createBrowserRouter([
   {path:'/dashboard',element:<DashBoard></DashBoard>},
   {path:'/home',element:<Home></Home>},
   {path:'/addcar',element:<AddCar></AddCar>},
-  {path:'/viewcar',element:<ViewCar></ViewCar>}
+  {path:'/viewcar',element:<ViewCar></ViewCar>},
+  {path:'/viewusers',element:<ViewUsers></ViewUsers>}
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

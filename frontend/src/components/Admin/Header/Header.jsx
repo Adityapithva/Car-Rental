@@ -10,7 +10,7 @@ const Header = () => {
                 <li className="nav-item"><a href="#" className="nav-link" aria-current="page">Home</a></li>
                 <li className="nav-item"><Link to="/viewcar" className="nav-link">View Cars</Link></li>
                 <li className="nav-item"><Link to="/addcar" className="nav-link">Add Cars</Link></li>
-                <li className="nav-item"><a href="#" className="nav-link">View Users</a></li>
+                <li className="nav-item"><Link to="/viewusers" className="nav-link">View Users</Link></li>
             </ul>
         </header>
     </>

@@ -74,6 +74,16 @@ app.get('/cars',async(req,res) => {
         res.status(500).json({message:'Error fetching cars', error:err.message});
     }
 });
+
+//Get all users for admin panel
+app.get('/viewusers',async(req,res) => {
+    try{
+        const users = await User.find();
+        res.status(200).json(users);
+    }catch(err){
+        res.status(500).json({message:'Error fetching users', error:err.message});
+    }
+});
 app.listen(3000,() => {
     console.log('Server is running on port 3000');
 })
