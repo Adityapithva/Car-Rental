@@ -9,6 +9,7 @@ const upload = require('./multerConfig.js');
 const Bookings = require('./models/Bookings');
 const app = express();
 const path = require('path');
+const { CLIENT_RENEG_WINDOW } = require('tls');
 const SECERET_KEY = 'asdcvghjytredcv';
 
 app.use(cors());
@@ -133,6 +134,19 @@ app.delete('/viewusers/:userId', async (req, res) => {
     }
 });
 
+
+//View booking from admin panel
+app.get('/rents',async(req,res) => {
+    try{
+        const rents = await Bookings.find()
+            .populate('userId','name')
+            .populate('carId','name image rate')
+            .sort({startDate:-1});
+        res.status(200).json(rents);
+    }catch(err){
+        res.status(500).json({ message: 'Error fetching rents', error: err.message });
+    }
+});
 // Book a car
 app.post('/bookcar/:carId', authToken, async (req, res) => {
     try {
@@ -162,6 +176,23 @@ app.post('/bookcar/:carId', authToken, async (req, res) => {
     }
 });
 
+
+//Get bookings for the authenticated user
+app.get('/myrentals',authToken,async(req,res) => {
+    try{
+        const bookings = await Bookings.find({userId:req.user.userId})
+        .populate('carId','name image rate').sort({startDate:-1})
+        .exec();
+        console.log(bookings);
+        if(bookings.length === 0){
+            return res.status(404).json({ message: 'No rentals found' });
+            console.log('dwertfghjhgfd');
+        }
+        res.status(200).json(bookings);
+    }catch(err){
+        res.status(500).json({ message: 'Error fetching rentals', error: err.message });
+    }
+});
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });

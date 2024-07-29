@@ -13,6 +13,10 @@ import ViewCar from './components/Admin/ViewCar/ViewCar.jsx';
 import ViewUsers from './components/Admin/ViewUsers/ViewUsers.jsx';
 import ViewRentals from './components/Admin/ViewRentals/ViewRentals.jsx';
 import Booking from './components/User/Booking/Booking.jsx';
+import AboutUs from './components/User/AboutUs/AboutUs.jsx';
+import Team from './components/User/Team/Team.jsx';
+import ContactUs from './components/User/ContactUs/ContactUs.jsx';
+import MyRentals from './components/User/MyRentals/MyRentals.jsx';
 const routes = createBrowserRouter([
   {path:'/',element:<SignIn></SignIn>},
   {path:'/login',element:<LogIn></LogIn>},
@@ -25,6 +29,10 @@ const routes = createBrowserRouter([
   {path:'/home',element:<Home></Home>},
   {path:'/viewrentals',element:<ViewRentals></ViewRentals>},
   {path:'/booking',element:<Booking></Booking>},
+  {path:'/aboutus',element:<AboutUs></AboutUs>},
+  {path:'/team',element:<Team></Team>},
+  {path:'/contactus',element:<ContactUs></ContactUs>},
+  {path:'/myrentals',element:<MyRentals></MyRentals>},
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

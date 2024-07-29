@@ -1,0 +1,49 @@
+.contact-information .contact-item {
+    padding: 60px 30px;
+    background-color: #f7f7f7;
+    text-align: center;
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+    height: 100%; /* Ensures all cards are the same height */
+}
+
+.contact-information .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-information .col-md-4 {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-information .contact-item {
+    flex: 1;
+    max-width: 300px; /* Adjust based on your design */
+    min-width: 250px; /* Ensures cards don't get too small */
+    margin: 10px; /* Adds spacing between cards */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.m, .l, .p {
+    color: #e8c720;
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+
+.contact-information .contact-item h4 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    margin-bottom: 15px;
+}
+
+.contact-information .contact-item p {
+    margin-bottom: 20px;
+}
+
+.contact-information .contact-item a {
+    font-weight: 600;
+    color: #e8c720;
+    font-size: 15px;
+}
