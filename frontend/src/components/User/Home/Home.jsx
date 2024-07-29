@@ -13,6 +13,7 @@ const Home = () => {
             </div>
             <div id='line'></div>
             <FunFacts></FunFacts>
+            <div id='line'></div>
         </>
     );
 };

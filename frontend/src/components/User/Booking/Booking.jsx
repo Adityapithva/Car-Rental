@@ -16,7 +16,6 @@ const Booking = ({ carId, onBookingComplete, carRate }) => {
         const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
         setTotalPrice(days * carRate);
     };
-
     const handleBook = async (e) => {
         e.preventDefault();
         try {
@@ -58,6 +57,7 @@ const Booking = ({ carId, onBookingComplete, carRate }) => {
                         type="date"
                         ref={startDate}
                         onChange={calculatePrice}
+                        min={new Date().toISOString().split('T')[0]}
                     />
                 </label>
                 <label>
@@ -66,6 +66,7 @@ const Booking = ({ carId, onBookingComplete, carRate }) => {
                         type="date"
                         ref={endDate}
                         onChange={calculatePrice}
+                        min={new Date().toISOString().split('T')[0]}
                     />
                 </label>
                 <p>Total Price: {totalPrice}</p>

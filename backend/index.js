@@ -42,7 +42,7 @@ app.post('/register', async (req, res) => {
 
 // Login a user
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password ,role} = req.body;
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({ message: 'User not found' });
@@ -51,13 +51,16 @@ app.post('/login', async (req, res) => {
     if (!validPassword) {
         return res.status(400).json({ message: 'Invalid credentials' });
     }
+    console.log(role,user.role);
+    if(role !== user.role){
+        return res.status(403).json({ message: 'Unauthorized access' });
+    }
     const token = jwt.sign({ userId: user._id }, SECERET_KEY, {
         expiresIn: '2h'
     });
-    res.status(200).json({ token, user });
+    res.status(200).json({ token, user });    
 });
 
-// Middleware for user authentication
 // Middleware for user authentication
 const authToken = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
@@ -134,6 +137,24 @@ app.delete('/viewusers/:userId', async (req, res) => {
     }
 });
 
+//Edit a car from admin panel
+app.put('/cars/:id', async (req, res) => {
+    try {
+        const { name, fuelType, transmission, seatingCapacity, rate } = req.body;
+        const car = await Cars.findByIdAndUpdate(req.params.id, {
+            name,
+            fuelType,
+            transmission,
+            seatingCapacity,
+            rate
+        }, { new: true });
+
+        if (!car) return res.status(404).json({ message: 'Car not found' });
+        res.status(200).json(car);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 //View booking from admin panel
 app.get('/rents',async(req,res) => {

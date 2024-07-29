@@ -6,10 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 const LogIn = () => {
     let email = useRef('');
     let password = useRef('');
-    let name = useRef('');
     const [selectedRole, setSelectedRole] = useState('');
     const navigate = useNavigate();
-
+    const [message,setMessage] = useState('');
     const handleRoleChange = (event) => {
         setSelectedRole(event.target.value); // Update state on radio button change
     };
@@ -18,7 +17,6 @@ const LogIn = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/login', {
-                name: name.current.value,
                 email: email.current.value,
                 password: password.current.value,
                 role: selectedRole,
@@ -33,6 +31,7 @@ const LogIn = () => {
             }
         } catch (err) {
             console.log(err);
+            setMessage(err.response.data.message); 
         }
     };
 
@@ -40,9 +39,7 @@ const LogIn = () => {
         <div className="container">
             <form className="form" onSubmit={handleSubmit}>
                 <p className="form-title">Login to your Account</p>
-                <div className="input-container">
-                    <input type="text" placeholder="Enter name" ref={name} />
-                </div>
+                {message}
                 <div className="input-container">
                     <input type="email" placeholder="Enter email" ref={email} />
                     <span></span>

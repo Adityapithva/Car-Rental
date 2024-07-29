@@ -1,19 +1,20 @@
 import { useRef, useState } from 'react';
 import './SignIn.css';
 import axios from 'axios';
-import { Navigate,Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
+
 const SignIn = () => {
     const name = useRef('');
     const email = useRef('');
     const password = useRef('');
-    const [selectedRole, setSelectedRole] = useState(''); // State for the selected role
+    const [selectedRole, setSelectedRole] = useState(''); // Removed default value
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!selectedRole) {
-            alert('Please select a role (User or Admin)');
-            return; // Prevent submission if no role is selected
+            alert('Please select a role (User)');
+            return;
         }
 
         try {
@@ -21,7 +22,7 @@ const SignIn = () => {
                 name: name.current.value,
                 email: email.current.value,
                 password: password.current.value,
-                role: selectedRole, // Use the selectedRole state variable
+                role: selectedRole, 
             });
 
             if (response.status === 201) {
@@ -29,16 +30,12 @@ const SignIn = () => {
                 name.current.value = '';
                 email.current.value = '';
                 password.current.value = '';
-                setSelectedRole(''); 
-                <Navigate to='/login'></Navigate>
+                setSelectedRole('');
+                <Navigate to='/login'></Navigate>;
             }
         } catch (err) {
             alert('Error registering user');
         }
-    };
-
-    const handleRoleChange = (event) => {
-        setSelectedRole(event.target.value); // Update state on radio button change
     };
 
     return (
@@ -60,22 +57,12 @@ const SignIn = () => {
                         <label className="radio">
                             <input
                                 type="radio"
-                                name="role" // Ensure all radio buttons share the same name for group behavior
+                                name="role" 
                                 value="user"
-                                checked={selectedRole === 'user'} // Set checked based on state
-                                onChange={handleRoleChange}
+                                checked={selectedRole === 'user'} 
+                                onChange={setSelectedRole}
                             />
                             <span className="name">User</span>
-                        </label>
-                        <label className="radio">
-                            <input
-                                type="radio"
-                                name="role"
-                                value="admin"
-                                checked={selectedRole === 'admin'} // Set checked based on state
-                                onChange={handleRoleChange} readOnly
-                            />
-                            <span className="name">Admin</span>
                         </label>
                     </div>
                     <button type="submit" className="submit">
