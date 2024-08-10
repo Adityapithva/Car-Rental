@@ -24,7 +24,7 @@ const LogIn = () => {
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
                 if (response.data.user.role === 'admin') {
-                    navigate('/dashboard', { replace: true });
+                    navigate('/viewcar', { replace: true });
                 } else {
                     navigate('/home', { replace: true });
                 }

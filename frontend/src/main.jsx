@@ -7,8 +7,7 @@ import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 import LogIn from './components/User/LogIn/LogIn.jsx';
 import SignIn from './components/User/SignIn/SignIn.jsx';
 import Fleet from './components/User/Fleet/Fleet.jsx';
-import DashBoard from './components/Admin/DashBoard/DashBoard.jsx';
-import Home from './components/User/Home/Home.jsx';
+import Main from './components/User/Main/Main.jsx';
 import AddCar from './components/Admin/AddCar/AddCar.jsx';
 import ViewCar from './components/Admin/ViewCar/ViewCar.jsx';
 import ViewUsers from './components/Admin/ViewUsers/ViewUsers.jsx';
@@ -22,12 +21,10 @@ const routes = createBrowserRouter([
   {path:'/',element:<SignIn></SignIn>},
   {path:'/login',element:<LogIn></LogIn>},
   {path:'/fleet',element:<Fleet></Fleet>},
-  {path:'/dashboard',element:<DashBoard></DashBoard>},
-  {path:'/home',element:<Home></Home>},
+  {path:'/home',element:<Main></Main>},
   {path:'/addcar',element:<AddCar></AddCar>},
   {path:'/viewcar',element:<ViewCar></ViewCar>},
   {path:'/viewusers',element:<ViewUsers></ViewUsers>},
-  {path:'/home',element:<Home></Home>},
   {path:'/viewrentals',element:<ViewRentals></ViewRentals>},
   {path:'/booking',element:<Booking></Booking>},
   {path:'/aboutus',element:<AboutUs></AboutUs>},

@@ -42,7 +42,7 @@ app.post('/register', async (req, res) => {
 
 // Login a user
 app.post('/login', async (req, res) => {
-    const { email, password ,role} = req.body;
+    const { email, password, role } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({ message: 'User not found' });
@@ -51,14 +51,14 @@ app.post('/login', async (req, res) => {
     if (!validPassword) {
         return res.status(400).json({ message: 'Invalid credentials' });
     }
-    console.log(role,user.role);
-    if(role !== user.role){
+    console.log(role, user.role);
+    if (role !== user.role) {
         return res.status(403).json({ message: 'Unauthorized access' });
     }
     const token = jwt.sign({ userId: user._id }, SECERET_KEY, {
         expiresIn: '2h'
     });
-    res.status(200).json({ token, user });    
+    res.status(200).json({ token, user });
 });
 
 // Middleware for user authentication
@@ -157,14 +157,14 @@ app.put('/cars/:id', async (req, res) => {
 });
 
 //View booking from admin panel
-app.get('/rents',async(req,res) => {
-    try{
+app.get('/rents', async (req, res) => {
+    try {
         const rents = await Bookings.find()
-            .populate('userId','name')
-            .populate('carId','name image rate')
-            .sort({startDate:-1});
+            .populate('userId', 'name')
+            .populate('carId', 'name image rate')
+            .sort({ startDate: -1 });
         res.status(200).json(rents);
-    }catch(err){
+    } catch (err) {
         res.status(500).json({ message: 'Error fetching rents', error: err.message });
     }
 });
@@ -175,22 +175,23 @@ app.post('/bookcar/:carId', authToken, async (req, res) => {
         if (!car) {
             return res.status(404).json({ message: 'Car not found' });
         }
-        const user = await User.findOne({email: req.user.email});  
+        const user = await User.findOne({ email: req.user.email });
         const { startDate, endDate } = req.body;
-        if(startDate >= endDate){
+        if (startDate >= endDate) {
             return res.status(400).json({ message: 'Invalid booking dates' });
         }
 
         const booking = await Bookings.find({
             carId: car._id,
-            startDate: { $gte: startDate },
-            endDate: { $lte: endDate },
-            userId:req.user.userId
+            $and: [
+                { startDate: { $lt: endDate } },
+                { endDate: { $gt: startDate } }  
+            ]
         });
-        if(booking.length > 0){
+        if (booking.length > 0) {
             return res.status(403).json({ message: 'Car is already booked for the selected dates' });
-        }   
-        const newBooking = await Bookings.create({ userId:req.user.userId, carId: car._id, startDate, endDate });
+        }
+        const newBooking = await Bookings.create({ userId: req.user.userId, carId: car._id, startDate, endDate });
         res.status(201).json({ message: 'Car booked successfully', newBooking });
     } catch (err) {
         res.status(500).json({ message: 'Error booking car', error: err.message });
@@ -199,19 +200,17 @@ app.post('/bookcar/:carId', authToken, async (req, res) => {
 
 
 //Get bookings for the authenticated user
-app.get('/myrentals',authToken,async(req,res) => {
-    try{
-        const bookings = await Bookings.find({userId:req.user.userId})
-        .populate('carId','name image rate').sort({startDate:-1})
-        .exec();
+app.get('/myrentals', authToken, async (req, res) => {
+    try {
+        const bookings = await Bookings.find({ userId: req.user.userId })
+            .populate('carId', 'name image rate').sort({ startDate: -1 });
         console.log(bookings);
-        if(bookings.length === 0){
+        if (bookings.length === 0) {
             return res.status(404).json({ message: 'No rentals found' });
-            console.log('dwertfghjhgfd');
         }
         res.status(200).json(bookings);
-    }catch(err){
-        res.status(500).json({ message: 'Error fetching rentals', error: err.message });
+    } catch (err) {
+        // res.status(500).json({ message: 'Error fetching rentals', error: err.message });
     }
 });
 app.listen(3000, () => {

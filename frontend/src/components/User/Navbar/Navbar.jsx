@@ -1,6 +1,13 @@
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { IoMdLogOut } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
+    const navigate = useNavigate();
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
     return <>
         <header className="d-flex flex-wrap justify-content-center py-3 border-bottom header">
             <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -13,6 +20,8 @@ const Navbar = () => {
                 <li className="nav-item"><Link to="/team" className="nav-link">Team</Link></li>
                 <li className="nav-item"><Link to="/contactus" className="nav-link">Contact Us</Link></li>
                 <li className="nav-item"><Link to="/myrentals" className="nav-link">My Rentals</Link></li>
+                <li className="nav-item"><Link className="nav-link" onClick={handleLogOut}>Logout <IoMdLogOut /></Link></li>
+
             </ul>
         </header>
     </>

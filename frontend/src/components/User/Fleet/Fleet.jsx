@@ -23,7 +23,7 @@ const Fleet = () => {
         <Navbar></Navbar>
         <Common title='Fleet'></Common>
         <div id='line'></div>
-        <div className="dropdown mt-3" style={{'margin-left':'80px'}}>
+        {/* <div className="dropdown mt-3" style={{'margin-left':'80px'}}>
                 <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Filter based on
                 </button>
@@ -32,7 +32,7 @@ const Fleet = () => {
                     <li><a className="dropdown-item"><input type="number" placeholder="Enter seating capacity"></input></a></li>
                     <li><a className="dropdown-item"><input type='number' placeholder="Rate upto"></input></a></li>
                 </ul>
-            </div>
+            </div> */}
         <div className="fleetContainer">
 
             {cars.map((car) => {

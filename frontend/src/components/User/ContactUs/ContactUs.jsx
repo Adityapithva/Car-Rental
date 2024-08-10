@@ -40,6 +40,7 @@ const ContactUs = () => {
                     </div>
                 </div>
             </div>
+            <div id='line'></div>
         </>
     );
 }

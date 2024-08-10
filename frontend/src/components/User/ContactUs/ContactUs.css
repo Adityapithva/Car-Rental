@@ -23,6 +23,7 @@
     min-width: 250px; /* Ensures cards don't get too small */
     margin: 10px; /* Adds spacing between cards */
     box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    max-height: 300px;
 }
 
 .m, .l, .p {
@@ -47,3 +48,7 @@
     color: #e8c720;
     font-size: 15px;
 }
+
+
+
+

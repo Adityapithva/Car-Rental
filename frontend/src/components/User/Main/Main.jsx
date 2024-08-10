@@ -1,7 +1,7 @@
 import FunFacts from '../FunFact/FunFact';
 import Navbar from '../Navbar/Navbar';
-import './Home.css';
-const Home = () => {
+import './Main.css';
+const Main = () => {
     return (
         <>
             <Navbar />
@@ -18,4 +18,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Main;

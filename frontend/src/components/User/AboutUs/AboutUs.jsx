@@ -50,6 +50,7 @@ const AboutUs = () => {
                 </div>
             </div>
         </div>
+            <div id='line'></div>
     </>
 }
 
